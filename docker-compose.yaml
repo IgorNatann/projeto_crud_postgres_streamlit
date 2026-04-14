@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: database_crud
+      POSTGRES_USER: user_crud
+      POSTGRES_PASSWORD: password_crud
+    networks:
+      - network_postgres
+
+  backend:
+
+  frontend:
+
+
+networks:
+  network_postgres:
+
+
+volumes:
+  postgres_data:
