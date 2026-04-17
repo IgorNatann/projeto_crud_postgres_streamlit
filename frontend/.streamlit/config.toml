@@ -1,0 +1,10 @@
+# Configuração de tema visual da aplicação Streamlit.
+# Referência de cores: identidade visual inspirada no Mercado Livre.
+# Documentação: https://docs.streamlit.io/develop/concepts/configuration/theming
+
+[theme]
+primaryColor = "#1E2250"             # Azul escuro — cor principal (botões, links, destaques)
+backgroundColor = "#ffffff"          # Branco — cor de fundo da página
+secondaryBackgroundColor = "#f5f5f5" # Cinza claro — fundo de widgets e sidebars
+textColor = "#2d377a"                # Azul médio — cor do texto principal
+font = "sans serif"

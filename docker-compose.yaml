@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:16
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
@@ -9,15 +9,42 @@ services:
       POSTGRES_PASSWORD: password_crud
     networks:
       - network_postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U user_crud -d database_crud" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   backend:
-    
-  frontend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app
+    environment:
+      DATABASE_URL: postgresql://user_crud:password_crud@postgres/database_crud
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - network_postgres
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "8501:8501"
+    networks:
+      - network_postgres
 
 networks:
   network_postgres:
-
+    driver: bridge
 
 volumes:
   postgres_data:
